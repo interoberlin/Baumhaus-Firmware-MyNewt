@@ -4,4 +4,10 @@ Projekt die aktuell funktionierende [Baumhaus-Tree-Firmware](https://github.com/
 
 ## Erstes Blinken auf dem nrfDruino Board
 
+Blinken der LED auf dem DevelopmentBoard
+
 [MyNewtBlinkyApp](apps/blinky.md)
+
+## Sparkling Minitree
+
+[MyNewtMiniTree](apps/minitree.md)
