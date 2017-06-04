@@ -1,4 +1,3 @@
-
 # Blinky App
 
 Mynewt installiert zuerst die App my_blinky_sim.
@@ -10,6 +9,7 @@ targets/my_blinky
     app=apps/blinky
     bsp=@apache-mynewt-core/hw/bsp/nrf51dk-16kbram-openocd
     build_profile=debug
+```
 
 ## targets/blinky/src.main.c
 
@@ -91,6 +91,7 @@ main(int argc, char **argv)
 
 ## Ein App-Image für ein nrf51-Board erstellen
 
+```shell
 $ newt target copy my_blinky_sim my_blinky
 Target successfully copied; targets/my_blinky_sim --> targets/my_blinky
 
