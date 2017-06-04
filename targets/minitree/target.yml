@@ -1,0 +1,4 @@
+### Target: targets/minitree
+target.app: "apps/minitree"
+target.bsp: "@apache-mynewt-core/hw/bsp/nrf51dk-16kbram-openocd"
+target.build_profile: "debug"
