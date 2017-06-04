@@ -1,0 +1,9 @@
+### Package: targets/my_blinky
+pkg.name: "targets/my_blinky"
+pkg.type: "target"
+pkg.description: 
+pkg.author: 
+pkg.homepage: 
+
+pkg.cflags:
+    - "-Wno-format-truncation"
