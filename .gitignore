@@ -1,0 +1,27 @@
+# generated files
+*.o
+*.elf
+*.map
+.app.db
+.app
+bin
+apps/.vscode
+obj
+tags
+.gdb_history
+.gdb_out
+.gdb_cmds
+.gdbinit
+
+# generated documentation
+docs/html
+docs/latex
+
+# temporary files
+*~
+.*.swp
+.DS_Store
+*.swp
+*.swo
+*.bak
+
