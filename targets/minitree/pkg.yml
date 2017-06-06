@@ -6,4 +6,4 @@ pkg.author:
 pkg.homepage: 
 
 pkg.cflags:
-    - "-Wno-format-truncation"
+    - "-Wno-format-truncation -DMINI_TREE -DEMBEDDED"
