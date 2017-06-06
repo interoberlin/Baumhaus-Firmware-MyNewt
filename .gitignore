@@ -12,6 +12,8 @@ tags
 .gdb_out
 .gdb_cmds
 .gdbinit
+.openocd_cmds
+out
 
 # generated documentation
 docs/html
