@@ -1,4 +1,4 @@
 [submodule "repos/apache-mynewt-core"]
 	path = repos/apache-mynewt-core
-	url = git@github.com:apache/incubator-mynewt-core.git
+	url = git@github.com:interoberlin/incubator-mynewt-core.git
 
