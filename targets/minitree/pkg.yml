@@ -6,4 +6,4 @@ pkg.author:
 pkg.homepage: 
 
 pkg.cflags:
-    - "-Wno-format-truncation -DMINI_TREE -DEMBEDDED"
+    - "-DMINI_TREE -DEMBEDDED -std=gnu11"
