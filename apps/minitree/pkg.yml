@@ -29,3 +29,4 @@ pkg.deps:
     - "@apache-mynewt-core/hw/hal"
     - "@apache-mynewt-core/sys/console/full"
     - libs/util
+    - libs/patterns

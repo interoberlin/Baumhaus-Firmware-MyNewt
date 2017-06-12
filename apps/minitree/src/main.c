@@ -1,15 +1,17 @@
 #include <assert.h>
 #include <string.h>
-#include "util/random.h"
 #include "sysinit/sysinit.h"
 #include "os/os.h"
 #include "bsp/bsp.h"
 #include "hal/hal_gpio.h"
+
+#include "util/random.h"
+#include "patterns.h"
+
 #ifdef ARCH_sim
 #include "mcu/mcu_sim.h"
 #endif
 
-#include <patterns.h>
 #include <leds.h>
 
 
