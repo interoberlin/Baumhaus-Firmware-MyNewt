@@ -5,7 +5,7 @@
 #include "bsp/bsp.h"
 #include "hal/hal_gpio.h"
 
-#include "util/random.h"
+#include "random.h"
 #include "patterns.h"
 
 #ifdef ARCH_sim

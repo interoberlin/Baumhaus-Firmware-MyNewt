@@ -1,4 +1,4 @@
-#include "util/random.h"
+#include "random.h"
 
 void srand(unsigned int seed)
 {

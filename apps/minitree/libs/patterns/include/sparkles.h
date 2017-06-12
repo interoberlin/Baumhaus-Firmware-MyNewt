@@ -5,7 +5,7 @@
 #ifndef SPARKLES_H
 #define SPARKLES_H
 
-#include "util/random.h"
+#include "random.h"
 #include <leds.h>
 #include <patterns.h>
 #include <sk6812.h>
