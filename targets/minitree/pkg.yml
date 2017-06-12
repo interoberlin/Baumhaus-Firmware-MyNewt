@@ -7,3 +7,4 @@ pkg.homepage:
 
 pkg.cflags:
     - "-DMINI_TREE -DEMBEDDED -std=gnu11"
+    - "-Wno-format-truncation"

@@ -1,6 +1,6 @@
 #include <assert.h>
 #include <string.h>
-#include <random.h>
+#include "util/random.h"
 #include "sysinit/sysinit.h"
 #include "os/os.h"
 #include "bsp/bsp.h"
