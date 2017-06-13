@@ -1,15 +1,21 @@
 #include <assert.h>
 #include <string.h>
-#include <random.h>
+<<<<<<< HEAD
+=======
+#include "util/random.h"
+>>>>>>> 288ab6a... moved random.[ch] and nfrduino.h to new libs/util
 #include "sysinit/sysinit.h"
 #include "os/os.h"
 #include "bsp/bsp.h"
 #include "hal/hal_gpio.h"
+
+#include "util/random.h"
+#include "patterns/patterns.h"
+
 #ifdef ARCH_sim
 #include "mcu/mcu_sim.h"
 #endif
 
-#include <patterns.h>
 #include <leds.h>
 
 

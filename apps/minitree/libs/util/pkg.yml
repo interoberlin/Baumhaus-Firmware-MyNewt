@@ -16,17 +16,5 @@
 # specific language governing permissions and limitations
 # under the License.
 #
-
-pkg.name: apps/minitree
-pkg.type: app
-pkg.description: Basic example application which blinks an LED.
-pkg.author: "Apache Mynewt <dev@mynewt.incubator.apache.org>"
-pkg.homepage: "http://mynewt.apache.org/"
-pkg.keywords:
-
+pkg.name: libs/util
 pkg.deps:
-    - "@apache-mynewt-core/kernel/os"
-    - "@apache-mynewt-core/hw/hal"
-    - "@apache-mynewt-core/sys/console/full"
-    - libs/util
-    - libs/patterns

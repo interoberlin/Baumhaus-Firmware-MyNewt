@@ -10,7 +10,7 @@
 
 // for development/debugging
 #ifdef BOARD_NRFDUINO
-#include <nrfduino.h>
+#include "util/nrfduino.h"
 #endif
 
 /**
