@@ -10,4 +10,3 @@ pkg.cflags:
     - "-DEMBEDDED"
     - "-std=gnu11"
     - "-DMINI_TREE -DEMBEDDED -std=gnu11"
-    - "-Wno-format-truncation"
