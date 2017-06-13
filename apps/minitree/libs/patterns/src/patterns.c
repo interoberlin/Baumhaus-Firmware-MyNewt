@@ -1,5 +1,5 @@
 
-#include "patterns.h"
+#include "patterns/patterns.h"
 
 sparkle_t pattern_sparkle[SPARKLE_COUNT];
 

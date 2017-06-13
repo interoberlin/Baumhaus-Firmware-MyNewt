@@ -5,8 +5,8 @@
 #include "bsp/bsp.h"
 #include "hal/hal_gpio.h"
 
-#include "random.h"
-#include "patterns.h"
+#include "util/random.h"
+#include "patterns/patterns.h"
 
 #ifdef ARCH_sim
 #include "mcu/mcu_sim.h"
