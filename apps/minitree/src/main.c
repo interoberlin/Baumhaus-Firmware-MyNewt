@@ -1,5 +1,9 @@
 #include <assert.h>
 #include <string.h>
+<<<<<<< HEAD
+=======
+#include "util/random.h"
+>>>>>>> 288ab6a... moved random.[ch] and nfrduino.h to new libs/util
 #include "sysinit/sysinit.h"
 #include "os/os.h"
 #include "bsp/bsp.h"
