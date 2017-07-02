@@ -28,6 +28,7 @@
 #include "hal/hal_gpio.h"
 #include "console/console.h"
 #include "hal/hal_system.h"
+#include "hal/hal_bsp.h"
 #include "config/config.h"
 #include "split/split.h"
 
@@ -37,10 +38,10 @@
 #include "services/gap/ble_svc_gap.h"
 
 /* Application-specified header. */
-#include "bleprph.h"
+#include "nimblink.h"
 
 /** Log data. */
-struct log bleprph_log;
+struct log app_log;
 
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
 
@@ -242,6 +243,18 @@ bleprph_on_sync(void)
     bleprph_advertise();
 }
 
+
+int gatt_svr_chr_callback(
+        uint16_t conn_handle,
+        uint16_t attr_handle,
+        struct ble_gatt_access_ctxt *ctxt,
+        void *arg)
+{
+    // TODO
+    return 0;
+}
+
+
 /**
  * main
  *
@@ -256,18 +269,17 @@ main(void)
     int rc;
 
     /* Set initial BLE device address. */
-    memcpy(g_dev_addr, (uint8_t[6]){0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a}, 6);
+//    memcpy(g_dev_addr, (uint8_t[6]){0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a}, 6);
+    hal_bsp_hw_id(g_dev_addr, 6);
 
     /* Initialize OS */
     sysinit();
 
     /* Initialize the bleprph log. */
-    log_register("bleprph", &bleprph_log, &log_console_handler, NULL,
-                 LOG_SYSLEVEL);
+    log_register("bleprph", &app_log, &log_console_handler, NULL, LOG_SYSLEVEL);
 
     /* Initialize the NimBLE host configuration. */
-    log_register("ble_hs", &ble_hs_log, &log_console_handler, NULL,
-                 LOG_SYSLEVEL);
+    log_register("ble_hs", &ble_hs_log, &log_console_handler, NULL, LOG_SYSLEVEL);
     ble_hs_cfg.reset_cb = bleprph_on_reset;
     ble_hs_cfg.sync_cb = bleprph_on_sync;
     ble_hs_cfg.gatts_register_cb = gatt_svr_register_cb;
@@ -276,7 +288,7 @@ main(void)
     assert(rc == 0);
 
     /* Set the default device name. */
-    rc = ble_svc_gap_device_name_set("nimble-bleprph");
+    rc = ble_svc_gap_device_name_set("nimblink");
     assert(rc == 0);
 
     conf_load();

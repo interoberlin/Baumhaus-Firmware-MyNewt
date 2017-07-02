@@ -29,7 +29,7 @@ extern "C" {
 struct ble_hs_cfg;
 struct ble_gatt_register_ctxt;
 
-extern struct log bleprph_log;
+extern struct log app_log;
 
 /* bleprph uses the first "peruser" log module. */
 #define BLEPRPH_LOG_MODULE  (LOG_MODULE_PERUSER + 0)

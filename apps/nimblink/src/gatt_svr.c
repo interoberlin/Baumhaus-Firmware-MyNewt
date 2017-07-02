@@ -23,7 +23,7 @@
 #include "bsp/bsp.h"
 #include "host/ble_hs.h"
 #include "host/ble_uuid.h"
-#include "bleprph.h"
+#include "nimblink.h"
 
 /**
  * The vendor specific security test service consists of two characteristics:
@@ -56,27 +56,57 @@ gatt_svr_chr_access_sec_test(uint16_t conn_handle, uint16_t attr_handle,
                              struct ble_gatt_access_ctxt *ctxt,
                              void *arg);
 
-static const struct ble_gatt_svc_def gatt_svr_svcs[] = {
+static const ble_uuid16_t service_uuid_led = BLE_UUID16_INIT(0x4000);
+
+static const ble_uuid16_t characteristic_uuid_blinky = BLE_UUID16_INIT(0x4001);
+
+extern int gatt_svr_chr_callback(
+        uint16_t conn_handle,
+        uint16_t attr_handle,
+        struct ble_gatt_access_ctxt *ctxt,
+        void *arg);
+
+static const struct ble_gatt_svc_def gatt_svr_svcs[] =
+{
     {
         /*** Service: Security test. */
         .type = BLE_GATT_SVC_TYPE_PRIMARY,
         .uuid = &gatt_svr_svc_sec_test_uuid.u,
-        .characteristics = (struct ble_gatt_chr_def[]) { {
+        .characteristics = (struct ble_gatt_chr_def[])
+        {
+            {
             /*** Characteristic: Random number generator. */
             .uuid = &gatt_svr_chr_sec_test_rand_uuid.u,
             .access_cb = gatt_svr_chr_access_sec_test,
             .flags = BLE_GATT_CHR_F_READ | BLE_GATT_CHR_F_READ_ENC,
-        }, {
+            },
+            {
             /*** Characteristic: Static value. */
             .uuid = &gatt_svr_chr_sec_test_static_uuid.u,
             .access_cb = gatt_svr_chr_access_sec_test,
             .flags = BLE_GATT_CHR_F_READ |
                      BLE_GATT_CHR_F_WRITE | BLE_GATT_CHR_F_WRITE_ENC,
-        }, {
-            0, /* No more characteristics in this service. */
-        } },
+            },
+            {
+                0, /* No more characteristics in this service. */
+            }
+        },
     },
-
+    {
+        type: BLE_GATT_SVC_TYPE_PRIMARY,
+        uuid: &service_uuid_led.u,
+        characteristics: (struct ble_gatt_chr_def[])
+        {
+            {
+                uuid: &characteristic_uuid_blinky.u,
+                access_cb: &gatt_svr_chr_callback,
+                flags: BLE_GATT_CHR_F_READ | BLE_GATT_CHR_F_WRITE | BLE_GATT_CHR_F_NOTIFY
+            },
+            {
+                0,
+            }
+        }
+    },
     {
         0, /* No more services. */
     },

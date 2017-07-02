@@ -17,7 +17,7 @@
  * under the License.
  */
 
-#include "bleprph.h"
+#include "nimblink.h"
 
 /**
  * Utility function to log an array of bytes.
