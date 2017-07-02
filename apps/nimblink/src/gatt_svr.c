@@ -56,11 +56,12 @@ gatt_svr_chr_access_sec_test(uint16_t conn_handle, uint16_t attr_handle,
                              struct ble_gatt_access_ctxt *ctxt,
                              void *arg);
 
-static const ble_uuid16_t service_uuid_led = BLE_UUID16_INIT(0x4000);
+const ble_uuid16_t gatt_service_uuid_led = BLE_UUID16_INIT(0x4000);
 
-static const ble_uuid16_t characteristic_uuid_blinky = BLE_UUID16_INIT(0x4001);
+const ble_uuid16_t gatt_characteristic_uuid_blinky = BLE_UUID16_INIT(0x4001);
 
-extern int gatt_svr_chr_callback(
+
+extern int gatt_led_blinky_callback(
         uint16_t conn_handle,
         uint16_t attr_handle,
         struct ble_gatt_access_ctxt *ctxt,
@@ -94,12 +95,12 @@ static const struct ble_gatt_svc_def gatt_svr_svcs[] =
     },
     {
         type: BLE_GATT_SVC_TYPE_PRIMARY,
-        uuid: &service_uuid_led.u,
+        uuid: &gatt_service_uuid_led.u,
         characteristics: (struct ble_gatt_chr_def[])
         {
             {
-                uuid: &characteristic_uuid_blinky.u,
-                access_cb: &gatt_svr_chr_callback,
+                uuid: &gatt_characteristic_uuid_blinky.u,
+                access_cb: &gatt_led_blinky_callback,
                 flags: BLE_GATT_CHR_F_READ | BLE_GATT_CHR_F_WRITE | BLE_GATT_CHR_F_NOTIFY
             },
             {

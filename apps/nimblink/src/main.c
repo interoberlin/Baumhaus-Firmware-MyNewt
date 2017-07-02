@@ -247,16 +247,23 @@ bleprph_on_sync(void)
     bleprph_advertise();
 }
 
-
-int gatt_svr_chr_callback(
+int gatt_led_blinky_callback(
         uint16_t conn_handle,
         uint16_t attr_handle,
         struct ble_gatt_access_ctxt *ctxt,
         void *arg)
 {
-    // TODO
+    const ble_uuid_t *uuid = ctxt->chr->uuid;
+    extern ble_uuid16_t gatt_characteristic_uuid_blinky;
 
-    hal_gpio_toggle(NRFDUINO_PIN_LED);
+    if (ble_uuid_cmp(uuid, &gatt_characteristic_uuid_blinky.u) == 0
+     && ctxt->op == BLE_GATT_ACCESS_OP_WRITE_CHR)
+    {
+
+        // TODO
+
+        hal_gpio_toggle(NRFDUINO_PIN_LED);
+    }
 
     return 0;
 }
