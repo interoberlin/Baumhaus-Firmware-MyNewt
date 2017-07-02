@@ -40,6 +40,10 @@
 /* Application-specified header. */
 #include "nimblink.h"
 
+
+#define NRFDUINO_PIN_LED 28
+
+
 /** Log data. */
 struct log app_log;
 
@@ -251,6 +255,9 @@ int gatt_svr_chr_callback(
         void *arg)
 {
     // TODO
+
+    hal_gpio_toggle(NRFDUINO_PIN_LED);
+
     return 0;
 }
 
@@ -274,6 +281,8 @@ main(void)
 
     /* Initialize OS */
     sysinit();
+
+    hal_gpio_init_out(NRFDUINO_PIN_LED, 1);
 
     /* Initialize the bleprph log. */
     log_register("bleprph", &app_log, &log_console_handler, NULL, LOG_SYSLEVEL);
