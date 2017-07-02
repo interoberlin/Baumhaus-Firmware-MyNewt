@@ -1,3 +1,9 @@
+# Eclipse
+.settings
+.project
+.cproject
+.metadata
+
 # generated files
 *.o
 *.elf
