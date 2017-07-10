@@ -33,3 +33,5 @@ docs/latex
 *.swo
 *.bak
 
+# other IDE
+.vscode
