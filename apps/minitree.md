@@ -2,7 +2,7 @@
 
 Ausgehend von der blinky app erstellen wir uns ein template für den Minitree, um die bisherige Firmware unter mynewt zu compilieren
 
-```
+```shell
 newt target copy my_blinky minitree
 Target successfully copied; targets/my_blinky --> targets/minitree
 
