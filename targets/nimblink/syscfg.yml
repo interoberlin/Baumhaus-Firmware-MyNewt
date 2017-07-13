@@ -20,4 +20,5 @@ syscfg.vals:
     LOG_FCB: 0
     LOG_NEWTMGR: 0
     REBOOT_LOG_FCB: 0
+    OS_MAIN_STACK_SIZE: 1024
     STATS_NEWTMGR: 0
