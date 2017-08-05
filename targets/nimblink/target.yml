@@ -1,5 +1,5 @@
 ### Target: targets/nimblink
 target.app: "apps/nimblink"
 target.bsp: "@apache-mynewt-core/hw/bsp/nrf51dk-16kbram-openocd"
-target.build_profile: "debug"
+target.build_profile: "optimized"
 target.loader: "@apache-mynewt-core/apps/bleprph"
