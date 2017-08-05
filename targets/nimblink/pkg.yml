@@ -4,6 +4,10 @@ pkg.type: "target"
 pkg.description: 
 pkg.author: 
 pkg.homepage: 
+pkg.deps:
+    - "@apache-mynewt-core/boot/bootutil"
+    - "@apache-mynewt-core/boot/split"
+    - "@apache-mynewt-core/mgmt/imgmgr"
 
 pkg.cflags:
     - "-DNIMBLE_OPT_ROLE_CENTRAL=0"
