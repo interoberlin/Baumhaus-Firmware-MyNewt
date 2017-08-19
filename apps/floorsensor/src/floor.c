@@ -9,13 +9,37 @@
 
 #include "pinout.h"
 
+/**
+ * Bitmask of sensors connected to this adapter
+ */
+volatile uint16_t sensor_connected;
 
-// a permanently updated array of sensor values
+/**
+ * Bitmask of sensors enabled for measuring
+ */
+volatile uint16_t sensor_enabled;
+
+/**
+ * Array of pulse counter values
+ */
 volatile uint16_t sensor_values[SENSOR_COUNT];
 
-// index of the currently measured sensor
-//  values: 0 to sensor_count-1
+/**
+ * Trigger threshold for sensor values
+ */
+volatile uint16_t sensor_threshold[SENSOR_COUNT];
+
+/**
+ * Bitmask of triggered sensors
+ */
+volatile uint16_t sensor_triggered;
+
+
+/**
+ * Index of the currently measured sensor
+ */
 uint8_t index_sensor_currently_measured = 0;
+
 
 // Forward declarations for floor_init();
 void floor_pulsecounter_init();
