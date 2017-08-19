@@ -261,6 +261,17 @@ int gatt_led_blinky_callback(
 
 
 /**
+ * This function is invoked, when all floor sensors
+ * have been measured once.
+ */
+void floor_measurement_complete_handler()
+{
+    // TODO: Update GATT server values
+//    extern volatile uint16_t sensor_values[SENSOR_COUNT];
+}
+
+
+/**
  * main
  *
  * The main task for the project. This function initializes the packages,

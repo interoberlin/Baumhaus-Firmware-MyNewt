@@ -2,6 +2,7 @@
 #include "floor.h"
 
 #include <nrf51_bitfields.h>
+#include <cmsis_nvic.h>
 
 #include <hal/hal_gpio.h>
 #include "hal_gpiote.h"
@@ -134,6 +135,10 @@ static inline uint16_t get_pulse_count()
 }
 
 
+// Forward declaration for floor_timer_init();
+void measurement_timer_irq_handler();
+
+
 void floor_timer_init()
 {
     // set the timer to Counter Mode
@@ -166,20 +171,9 @@ void floor_timer_init()
     // configure debug pin as output
     hal_gpio_init_out(PIN_DEBUG_MEASUREMENT_INTERVAL, 0);
 
-    // enable appropriate timer interrupt
-//#ifdef FLOOR_USES_TIMER0
-//    NVIC_EnableIRQ(TIMER0_IRQn);
-//
-//#elifdef FLOOR_USES_TIMER1
-//    NVIC_EnableIRQ(TIMER1_IRQn);
-//
-////#elifdef FLOOR_USES_TIMER2
-//#else
-//    NVIC_EnableIRQ(TIMER2_IRQn);
-//#endif
-
     // manual setting for testing
     NVIC_SetPriority(TIMER2_IRQn, 1);
+    NVIC_SetVector(TIMER2_IRQn, (uint32_t) &measurement_timer_irq_handler);
     NVIC_EnableIRQ(TIMER2_IRQn);
 }
 
@@ -189,7 +183,7 @@ void floor_timer_enable()
     // reset timer
     TIMER_MEASUREMENT->TASKS_CLEAR = 1;
     // start timer
-//    TIMER_MEASUREMENT->TASKS_START = 1;
+    TIMER_MEASUREMENT->TASKS_START = 1;
 }
 
 
@@ -199,26 +193,15 @@ void floor_timer_disable()
     TIMER_MEASUREMENT->TASKS_STOP = 1;
 }
 
+
+extern void floor_measurement_complete_handler();
+
 /**
  * Interrupts Service Routine (ISR) for the timer,
  * which we use to determine measurement duration
  * and measurement interval
  */
-//#ifdef FLOOR_USES_TIMER0
-//    #define TIMER_ISR() void TIMER0_IRQHandler
-//#elifdef FLOOR_USES_TIMER1
-//    #define TIMER_ISR() void TIMER1_IRQHandler
-//#elifdef FLOOR_USES_TIMER2
-//    #define TIMER_ISR() void TIMER2_IRQHandler
-//#else
-//    #define TIMER_ISR() void unused
-//#endif
-
-extern void on_measurement_cycle_complete(volatile uint16_t*);
-
-//TIMER_ISR()()
-// manual setting for testing
-void TIMER2_IRQHandler()
+void measurement_timer_irq_handler()
 {
     /*
      * Measurement complete:
@@ -240,7 +223,7 @@ void TIMER2_IRQHandler()
         if (index_sensor_currently_measured % SENSOR_COUNT == 0)
         {
             // invoke external event handler
-            on_measurement_cycle_complete(sensor_values);
+            floor_measurement_complete_handler();
         }
 
         index_sensor_currently_measured = (index_sensor_currently_measured + 1) % SENSOR_COUNT;
