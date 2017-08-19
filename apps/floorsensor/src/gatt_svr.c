@@ -28,22 +28,20 @@ static const struct ble_gatt_svc_def gatt_svr_svcs[] =
         uuid: &gatt_service_floorsensor_uuid.u,
         characteristics: (struct ble_gatt_chr_def[])
         {
-            /*
             {
                 uuid: &gatt_characteristic_floorsensor_uuid_connected.u,
                 access_cb: &gatt_characteristic_floorsensor_connected_handler,
-                flags: BLE_GATT_CHR_F_READ | BLE_GATT_CHR_F_NOTIFY | BLE_GATT_CHR_F_INDICATE
+                flags: BLE_GATT_CHR_F_READ,
             },
             {
                 uuid: &gatt_characteristic_floorsensor_uuid_enabled.u,
                 access_cb: &gatt_characteristic_floorsensor_enabled_handler,
-                flags: BLE_GATT_CHR_F_READ | BLE_GATT_CHR_F_NOTIFY | BLE_GATT_CHR_F_INDICATE
+                flags: BLE_GATT_CHR_F_READ,
             },
-            */
             {
                 uuid: &gatt_characteristic_floorsensor_uuid_raw_data.u,
                 access_cb: &gatt_characteristic_floorsensor_raw_data_handler,
-                flags: BLE_GATT_CHR_F_READ | BLE_GATT_CHR_F_NOTIFY | BLE_GATT_CHR_F_INDICATE
+                flags: BLE_GATT_CHR_F_READ | BLE_GATT_CHR_F_NOTIFY,
             },
             /*
             {

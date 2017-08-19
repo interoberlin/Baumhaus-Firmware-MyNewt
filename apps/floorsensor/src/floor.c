@@ -12,12 +12,12 @@
 /**
  * Bitmask of sensors connected to this adapter
  */
-volatile uint16_t sensor_connected;
+volatile uint16_t sensor_connected = 0x7fff;
 
 /**
  * Bitmask of sensors enabled for measuring
  */
-volatile uint16_t sensor_enabled;
+volatile uint16_t sensor_enabled = (1 << 8);
 
 /**
  * Array of pulse counter values
