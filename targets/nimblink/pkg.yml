@@ -6,8 +6,8 @@ pkg.author:
 pkg.homepage: 
 
 pgk.dep:
-    - "@apache-mynewt-core/sys/console/stub"
-    - "@apache-mynewt-core/sys/log/stub"
+    - "@apache-mynewt-core/sys/console/minimal"
+    # - "@apache-mynewt-core/sys/log/stub"
 
 pkg.cflags:
     - "-DNIMBLE_OPT_ROLE_CENTRAL=0"
