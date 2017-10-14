@@ -2,6 +2,7 @@
 .settings
 .project
 .cproject
+.pydevproject
 .metadata
 
 # generated files
