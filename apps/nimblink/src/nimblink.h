@@ -17,14 +17,21 @@
  * under the License.
  */
 
-#ifndef H_BLEPRPH_
-#define H_BLEPRPH_
+#ifndef H_NIMBLINK_
+#define H_NIMBLINK_
 
-#include "log/log.h"
-#include "nimble/ble.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/* forward declarations (defined in loader */
+static void bleprph_on_reset(int reason);
+static void bleprph_on_sync(void);
+void gatt_svr_register_cb(struct ble_gatt_register_ctxt *ctxt, void *arg);
+
+#if 0
+#include "log/log.h"
+#include "nimble/ble.h"
 
 struct ble_hs_cfg;
 struct ble_gatt_register_ctxt;
@@ -53,8 +60,8 @@ int gatt_svr_init(void);
 void print_bytes(const uint8_t *bytes, int len);
 void print_addr(const void *addr);
 
+#endif
 #ifdef __cplusplus
 }
 #endif
-
 #endif

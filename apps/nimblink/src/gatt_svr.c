@@ -1,3 +1,4 @@
+#if 0
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -233,3 +234,4 @@ gatt_svr_init(void)
 
     return 0;
 }
+#endif

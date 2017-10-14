@@ -40,10 +40,11 @@
 /* Application-specified header. */
 #include "nimblink.h"
 
-
+static const char devBaseName[] = "nimblink";
 #define NRFDUINO_PIN_LED 28
 
 
+#if 0
 /** Log data. */
 struct log app_log;
 
@@ -272,7 +273,7 @@ int gatt_led_blinky_callback(
 
     return 0;
 }
-
+#endif
 
 /**
  * main
@@ -297,19 +298,27 @@ main(void)
     hal_gpio_init_out(NRFDUINO_PIN_LED, 1);
 
     /* Initialize the bleprph log. */
-    log_register("bleprph", &app_log, &log_console_handler, NULL, LOG_SYSLEVEL);
+    // log_register("bleprph", &app_log, &log_console_handler, NULL, LOG_SYSLEVEL);
 
     /* Initialize the NimBLE host configuration. */
-    log_register("ble_hs", &ble_hs_log, &log_console_handler, NULL, LOG_SYSLEVEL);
-    ble_hs_cfg.reset_cb = bleprph_on_reset;
-    ble_hs_cfg.sync_cb = bleprph_on_sync;
-    ble_hs_cfg.gatts_register_cb = gatt_svr_register_cb;
+    // log_register("ble_hs", &ble_hs_log, &log_console_handler, NULL, LOG_SYSLEVEL);
+    // ble_hs_cfg.reset_cb = bleprph_on_reset;
+    // ble_hs_cfg.sync_cb = bleprph_on_sync;
+    // ble_hs_cfg.gatts_register_cb = gatt_svr_register_cb;
 
-    rc = gatt_svr_init();
-    assert(rc == 0);
+    // rc = gatt_svr_init();
+    // assert(rc == 0);
 
     /* Set the default device name. */
-    rc = ble_svc_gap_device_name_set("nimblink");
+    int i=0;
+    char lstr[255];
+    snprintf(lstr, sizeof(lstr), "%s-", devBaseName); 
+    for (i=0; i<5; i++) {
+        snprintf(lstr, sizeof(lstr), "%s%d:", lstr, g_dev_addr[i]); 
+    }
+    lstr[i] = '\0'; // remove the last colon
+
+    rc = ble_svc_gap_device_name_set(lstr);
     assert(rc == 0);
 
     conf_load();

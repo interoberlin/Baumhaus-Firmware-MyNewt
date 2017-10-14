@@ -1,3 +1,4 @@
+#if 0
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -41,3 +42,4 @@ print_addr(const void *addr)
     BLEPRPH_LOG(INFO, "%02x:%02x:%02x:%02x:%02x:%02x",
                 u8p[5], u8p[4], u8p[3], u8p[2], u8p[1], u8p[0]);
 }
+#endif
