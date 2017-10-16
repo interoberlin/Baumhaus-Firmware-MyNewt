@@ -17,32 +17,35 @@
  * under the License.
  */
 
-#include <assert.h>
-#include <string.h>
+// #include <assert.h>
+// #include <string.h>
 #include <stdio.h>
-#include <errno.h>
-#include "sysinit/sysinit.h"
-#include "bsp/bsp.h"
-#include "os/os.h"
-#include "bsp/bsp.h"
-#include "hal/hal_gpio.h"
-#include "console/console.h"
-#include "hal/hal_system.h"
-#include "hal/hal_bsp.h"
-#include "config/config.h"
-#include "split/split.h"
+// #include <errno.h>
+
+#include <sysinit/sysinit.h>
+#include <reboot/log_reboot.h>
+#include <hal/hal_gpio.h>
+#include <config/config.h>
+// #include "bsp/bsp.h"
+// #include "os/os.h"
+// #include "bsp/bsp.h"
+
+// #include "console/console.h"
+// #include "hal/hal_system.h"
+// #include "hal/hal_bsp.h"
+#if MYNEWT_VAL(SPLIT_LOADER)
+#include <split/split.h>
+#endif
 
 /* BLE */
-#include "nimble/ble.h"
-#include "host/ble_hs.h"
-#include "services/gap/ble_svc_gap.h"
+#include <nimble/ble.h>
+#include <host/ble_hs.h>
+#include <services/gap/ble_svc_gap.h>
 
 /* Application-specified header. */
 #include "nimblink.h"
 
 static const char devBaseName[] = "nimblink";
-#define NRFDUINO_PIN_LED 28
-
 
 #if 0
 /** Log data. */
@@ -290,10 +293,14 @@ main(void)
 
     /* Set initial BLE device address. */
 //    memcpy(g_dev_addr, (uint8_t[6]){0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a}, 6);
-    hal_bsp_hw_id(g_dev_addr, 6);
+    // hal_bsp_hw_id(g_dev_addr, 6);
 
     /* Initialize OS */
     sysinit();
+
+    conf_load();
+    
+    reboot_start(hal_reset_cause());
 
     hal_gpio_init_out(NRFDUINO_PIN_LED, 1);
 
@@ -309,6 +316,7 @@ main(void)
     // rc = gatt_svr_init();
     // assert(rc == 0);
 
+    register_nimble_service();
     /* Set the default device name. */
     int i=0;
     char lstr[255];
@@ -326,6 +334,7 @@ main(void)
     /* If this app is acting as the loader in a split image setup, jump into
      * the second stage application instead of starting the OS.
      */
+#if 0
 #if MYNEWT_VAL(SPLIT_LOADER)
     {
         void *entry;
@@ -335,7 +344,7 @@ main(void)
         }
     }
 #endif
-
+#endif
     /*
      * As the last thing, process events from default event queue.
      */

@@ -24,10 +24,21 @@
 extern "C" {
 #endif
 
+#define NRFDUINO_PIN_LED 28
+
+
 /* forward declarations (defined in loader */
-static void bleprph_on_reset(int reason);
-static void bleprph_on_sync(void);
-void gatt_svr_register_cb(struct ble_gatt_register_ctxt *ctxt, void *arg);
+extern void bleprph_on_reset(int reason);
+extern  void bleprph_on_sync(void);
+extern void gatt_svr_register_cb(struct ble_gatt_register_ctxt *ctxt, void *arg);
+
+/* forward declarations (defined in gatt_service.c */
+extern int gatt_led_blinky_callback(
+    uint16_t conn_handle,
+    uint16_t attr_handle,
+    struct ble_gatt_access_ctxt *ctxt,
+    void *arg);
+extern int register_nimble_service(void);
 
 #if 0
 #include "log/log.h"
