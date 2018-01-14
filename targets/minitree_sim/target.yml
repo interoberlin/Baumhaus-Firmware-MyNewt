@@ -1,4 +1,0 @@
-### Target: targets/minitree_sim
-target.app: "apps/minitree"
-target.bsp: "@apache-mynewt-core/hw/bsp/native"
-target.build_profile: "debug"
