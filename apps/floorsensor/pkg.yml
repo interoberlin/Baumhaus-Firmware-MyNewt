@@ -20,6 +20,7 @@ pkg.type: app
 pkg.description: Floor sensor firmware
 
 pkg.deps: 
+    - "@apache-mynewt-core/boot/bootutil"
     - "@apache-mynewt-core/boot/split"
     - "@apache-mynewt-core/kernel/os" 
     - "@apache-mynewt-core/mgmt/imgmgr"
