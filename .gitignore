@@ -2,9 +2,11 @@
 .settings
 .project
 .cproject
+.pydevproject
 .metadata
 
 # generated files
+openocd.log
 *.o
 *.elf
 *.map
@@ -35,3 +37,4 @@ docs/latex
 
 # other IDE
 .vscode
+openocd.log

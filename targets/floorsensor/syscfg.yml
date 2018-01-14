@@ -1,0 +1,12 @@
+### Package: targets/floorsensor
+
+syscfg.vals:
+    CONSOLE_COMPAT: 0
+    CONSOLE_INPUT: 0
+    CONSOLE_PROMPT: 0
+    CONSOLE_TICKS: 0
+    CONSOLE_UART: 0
+    CONSOLE_UART_TX_BUF_SIZE: 1
+    OS_CLI: 0
+    OS_COREDUMP: 0
+    SHELL_TASK: 0
