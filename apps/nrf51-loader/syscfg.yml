@@ -64,4 +64,5 @@ syscfg.vals:
     MSYS_1_BLOCK_COUNT: 22
     MSYS_1_BLOCK_SIZE: 110
 
-    
+    # Reduce Image Size
+    LOG_LEVEL: 255
