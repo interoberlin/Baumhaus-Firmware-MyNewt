@@ -70,7 +70,7 @@ int gatt_characteristic_floorsensor_raw_data_handler(
     if (context->op == BLE_GATT_ACCESS_OP_READ_CHR)
     {
         // Return sensor values
-        extern volatile uint16_t sensor_values[SENSOR_COUNT];
+        extern uint16_t sensor_values[SENSOR_COUNT];
         int rc = os_mbuf_append(
                 context->om,
                 &sensor_values,
@@ -96,7 +96,7 @@ int gatt_characteristic_floorsensor_threshold_handler(
     if (context->op == BLE_GATT_ACCESS_OP_READ_CHR)
     {
         // Return sensor values
-        extern volatile uint16_t sensor_threshold[SENSOR_COUNT];
+        extern uint16_t sensor_threshold[SENSOR_COUNT];
         int rc = os_mbuf_append(
                 context->om,
                 &sensor_threshold,
