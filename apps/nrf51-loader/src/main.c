@@ -30,6 +30,7 @@
 #include "hal/hal_system.h"
 #include "config/config.h"
 #include "split/split.h"
+#include <hal/hal_bsp.h>
 
 /* BLE */
 #include "nimble/ble.h"
@@ -43,6 +44,8 @@
 struct log bleprph_log;
 
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
+
+static const char devBaseName[] = "BHL";
 
 /**
  * Logs information about a connection to the console.
@@ -287,7 +290,8 @@ main(void)
     int rc;
 
     /* Set initial BLE device address. */
-    memcpy(g_dev_addr, (uint8_t[6]){0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a}, 6);
+//    memcpy(g_dev_addr, (uint8_t[6]){0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a}, 6);
+    hal_bsp_hw_id(g_dev_addr, 6);
 
     /* Initialize OS */
     sysinit();
@@ -308,7 +312,10 @@ main(void)
     assert(rc == 0);
 
     /* Set the default device name. */
-    rc = ble_svc_gap_device_name_set("nimble-bleprph");
+    char lstr[255];
+    // snprintf(lstr, sizeof(lstr), "%s-%02x:%02x:%02x:%02x:%02x:%02x", devBaseName, g_dev_addr[0], g_dev_addr[1], g_dev_addr[2], g_dev_addr[3], g_dev_addr[4], g_dev_addr[5]); 
+    snprintf(lstr, sizeof(lstr), "%s-%02x%02x%02x%02x%02x%02x", devBaseName, g_dev_addr[0], g_dev_addr[1], g_dev_addr[2], g_dev_addr[3], g_dev_addr[4], g_dev_addr[5]); 
+    rc = ble_svc_gap_device_name_set(lstr);
     assert(rc == 0);
 
 #if MYNEWT_VAL(BLEPRPH_LE_PHY_SUPPORT)
@@ -329,6 +336,7 @@ main(void)
         }
     }
 #endif
+
 
     /*
      * As the last thing, process events from default event queue.
