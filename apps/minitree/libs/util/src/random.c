@@ -1,5 +1,5 @@
 #include "util/random.h"
-
+#if 0
 void srand(unsigned int seed)
 {
     RNG_START = 1;
@@ -12,3 +12,4 @@ int rand()
     return RNG_VALUE;
 }
 
+#endif
