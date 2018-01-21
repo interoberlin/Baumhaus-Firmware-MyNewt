@@ -3,6 +3,7 @@
 .project
 .cproject
 .metadata
+.pydevproject
 
 # generated files
 *.o
