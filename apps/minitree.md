@@ -61,3 +61,4 @@ $ cp -r blinky minitree
 ### Minitree Tasksteuerung
 
 main.c wird durch das Tasksample von [mynewt](https://mynewt.apache.org/latest/os/core_os/task/task/) ersetzt und `#define ANDRU_BLINK_PIN 28` auf unseren GPIO-Pin gesetzt.
+__
