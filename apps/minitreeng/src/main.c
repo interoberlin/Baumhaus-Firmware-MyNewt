@@ -6,6 +6,11 @@
 #include <bsp/bsp.h>
 #include <hal/hal_gpio.h>
 
+/* BLE */
+#include <nimble/ble.h>
+#include <host/ble_hs.h>
+#include <services/gap/ble_svc_gap.h>
+
 #include "util/random.h"
 #include "patterns/patterns.h"
 
@@ -60,6 +65,8 @@ int main(int argc, char **argv)
 
     /* Perform system and package initialization */
     sysinit();
+
+    ble_svc_gap_device_name_set("minitreeng");
 
     init_ledstrips();
     init_patterns();

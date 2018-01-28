@@ -1,6 +1,5 @@
 ### Target: targets/minitreeng
 target.app: "apps/minitreeng"
 target.bsp: "@apache-mynewt-core/hw/bsp/nrf51dk-16kbram-openocd"
-target.build_profile: "optimized"
+target.build_profile: "debug"
 target.loader: "apps/nrf51-loader"
-

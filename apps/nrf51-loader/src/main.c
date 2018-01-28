@@ -45,7 +45,7 @@ struct log bleprph_log;
 
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
 
-static const char devBaseName[] = "BHL";
+static const char devBaseName[] = "nrf51-loader";
 
 /**
  * Logs information about a connection to the console.
@@ -312,10 +312,10 @@ main(void)
     assert(rc == 0);
 
     /* Set the default device name. */
-    char lstr[255];
+//    char lstr[255];
     // snprintf(lstr, sizeof(lstr), "%s-%02x:%02x:%02x:%02x:%02x:%02x", devBaseName, g_dev_addr[0], g_dev_addr[1], g_dev_addr[2], g_dev_addr[3], g_dev_addr[4], g_dev_addr[5]); 
-    snprintf(lstr, sizeof(lstr), "%s-%02x%02x%02x%02x%02x%02x", devBaseName, g_dev_addr[0], g_dev_addr[1], g_dev_addr[2], g_dev_addr[3], g_dev_addr[4], g_dev_addr[5]); 
-    rc = ble_svc_gap_device_name_set(lstr);
+//    snprintf(lstr, sizeof(lstr), "%s-%02x%02x%02x%02x%02x%02x", devBaseName, g_dev_addr[0], g_dev_addr[1], g_dev_addr[2], g_dev_addr[3], g_dev_addr[4], g_dev_addr[5]);
+    rc = ble_svc_gap_device_name_set(devBaseName);
     assert(rc == 0);
 
 #if MYNEWT_VAL(BLEPRPH_LE_PHY_SUPPORT)
