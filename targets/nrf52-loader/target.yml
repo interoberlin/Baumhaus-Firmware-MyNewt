@@ -1,0 +1,4 @@
+### Target: targets/nrf52-loader
+target.app: "apps/nrf52-loader"
+target.bsp: "@apache-mynewt-core/hw/bsp/nrf52dk"
+target.build_profile: "debug"
