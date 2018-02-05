@@ -65,4 +65,11 @@ syscfg.vals:
     MSYS_1_BLOCK_SIZE: 110
 
     # Reduce Image Size
-    LOG_LEVEL: 255
+    #LOG_LEVEL: 255
+    LOG_LEVEL: 3
+
+    # Enable core dumps
+    OS_COREDUMP: 1
+
+    UART_0: 1
+    CONSOLE_UART_BAUD: 460800
