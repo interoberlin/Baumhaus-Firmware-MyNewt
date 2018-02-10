@@ -1,0 +1,24 @@
+newt target create bleprph-nrf51dk
+newt target set bleprph-nrf51dk                     \
+    app=@apache-mynewt-core/apps/bleprph            \
+    bsp=@apache-mynewt-core/hw/bsp/nrf51dk-16kbram-openocd          \
+    build_profile=debug                         \
+    syscfg=BLE_LL_CFG_FEAT_LE_ENCRYPTION=0:BLE_SM_LEGACY=0
+    cflags="-Wno-error=format-truncation"
+
+newt target create split-nrf51dk
+newt target set split-nrf51dk                       \
+    loader=@apache-mynewt-core/apps/bleprph         \
+    app=@apache-mynewt-core/apps/splitty            \
+    bsp=@apache-mynewt-core/hw/bsp/nrf51dk-16kbram-openocd          \
+    build_profile=debug                         \
+    syscfg=BLE_LL_CFG_FEAT_LE_ENCRYPTION=0:BLE_SM_LEGACY=0
+    cflags="-Wno-error=format-truncation"
+
+newtmgr conn add myble type=ble connstring="peer_name=nimblink-goetz"
+
+dev: hci0 up
+Error: no supported devices available
+sudo setcap cap_net_admin=+ep `which newtmgr`
+
+newtmgr image list -c myble

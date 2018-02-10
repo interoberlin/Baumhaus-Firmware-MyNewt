@@ -17,41 +17,35 @@
  * under the License.
  */
 
-// #include <assert.h>
-// #include <string.h>
+#include <assert.h>
+#include <string.h>
 #include <stdio.h>
-// #include <errno.h>
-
-#include <sysinit/sysinit.h>
-#include <reboot/log_reboot.h>
-#include <hal/hal_gpio.h>
-#include <config/config.h>
-// #include "bsp/bsp.h"
-// #include "os/os.h"
-// #include "bsp/bsp.h"
-
-// #include "console/console.h"
-// #include "hal/hal_system.h"
-// #include "hal/hal_bsp.h"
-#if MYNEWT_VAL(SPLIT_LOADER)
-#include <split/split.h>
-#endif
+#include <errno.h>
+#include "sysinit/sysinit.h"
+#include "bsp/bsp.h"
+#include "os/os.h"
+#include "bsp/bsp.h"
+#include "hal/hal_gpio.h"
+#include "console/console.h"
+#include "hal/hal_system.h"
+#include "config/config.h"
+#include "split/split.h"
+#include <hal/hal_bsp.h>
 
 /* BLE */
-#include <nimble/ble.h>
-#include <host/ble_hs.h>
-#include <services/gap/ble_svc_gap.h>
+#include "nimble/ble.h"
+#include "host/ble_hs.h"
+#include "services/gap/ble_svc_gap.h"
 
 /* Application-specified header. */
-#include "nimblink.h"
+#include "bleprph.h"
 
-static const char devBaseName[] = "nimblink";
-
-#if 0
 /** Log data. */
-struct log app_log;
+struct log bleprph_log;
 
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
+
+static const char devBaseName[] = "BHL";
 
 /**
  * Logs information about a connection to the console.
@@ -177,6 +171,10 @@ bleprph_gap_event(struct ble_gap_event *event, void *arg)
             rc = ble_gap_conn_find(event->connect.conn_handle, &desc);
             assert(rc == 0);
             bleprph_print_conn_desc(&desc);
+
+#if MYNEWT_VAL(BLEPRPH_LE_PHY_SUPPORT)
+            phy_conn_changed(event->connect.conn_handle);
+#endif
         }
         BLEPRPH_LOG(INFO, "\n");
 
@@ -190,6 +188,10 @@ bleprph_gap_event(struct ble_gap_event *event, void *arg)
         BLEPRPH_LOG(INFO, "disconnect; reason=%d ", event->disconnect.reason);
         bleprph_print_conn_desc(&event->disconnect.conn);
         BLEPRPH_LOG(INFO, "\n");
+
+#if MYNEWT_VAL(BLEPRPH_LE_PHY_SUPPORT)
+        phy_conn_changed(CONN_HANDLE_INVALID);
+#endif
 
         /* Connection terminated; resume advertising. */
         bleprph_advertise();
@@ -233,6 +235,29 @@ bleprph_gap_event(struct ble_gap_event *event, void *arg)
                     event->mtu.channel_id,
                     event->mtu.value);
         return 0;
+
+    case BLE_GAP_EVENT_REPEAT_PAIRING:
+        /* We already have a bond with the peer, but it is attempting to
+         * establish a new secure link.  This app sacrifices security for
+         * convenience: just throw away the old bond and accept the new link.
+         */
+
+        /* Delete the old bond. */
+        rc = ble_gap_conn_find(event->repeat_pairing.conn_handle, &desc);
+        assert(rc == 0);
+        ble_store_util_delete_peer(&desc.peer_id_addr);
+
+        /* Return BLE_GAP_REPEAT_PAIRING_RETRY to indicate that the host should
+         * continue with the pairing operation.
+         */
+        return BLE_GAP_REPEAT_PAIRING_RETRY;
+
+#if MYNEWT_VAL(BLEPRPH_LE_PHY_SUPPORT)
+    case BLE_GAP_EVENT_PHY_UPDATE_COMPLETE:
+        /* XXX: assume symmetric phy for now */
+        phy_update(event->phy_updated.tx_phy);
+        return 0;
+#endif
     }
 
     return 0;
@@ -251,33 +276,6 @@ bleprph_on_sync(void)
     bleprph_advertise();
 }
 
-int gatt_led_blinky_callback(
-        uint16_t conn_handle,
-        uint16_t attr_handle,
-        struct ble_gatt_access_ctxt *context,
-        void *arg)
-{
-    const ble_uuid_t *uuid = context->chr->uuid;
-    extern ble_uuid16_t gatt_characteristic_uuid_blinky;
-
-    if (ble_uuid_cmp(uuid, &gatt_characteristic_uuid_blinky.u) == 0
-     && context->op == BLE_GATT_ACCESS_OP_WRITE_CHR)
-    {
-        uint8_t repeat = context->om->om_data[0];
-        uint8_t i;
-        for (i=0; i<repeat; i++)
-        {
-            hal_gpio_write(NRFDUINO_PIN_LED, 1);
-            os_time_delay(OS_TICKS_PER_SEC);
-            hal_gpio_write(NRFDUINO_PIN_LED, 0);
-            os_time_delay(OS_TICKS_PER_SEC);
-        }
-    }
-
-    return 0;
-}
-#endif
-
 /**
  * main
  *
@@ -293,48 +291,42 @@ main(void)
 
     /* Set initial BLE device address. */
 //    memcpy(g_dev_addr, (uint8_t[6]){0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a}, 6);
-    // hal_bsp_hw_id(g_dev_addr, 6);
+    hal_bsp_hw_id(g_dev_addr, 6);
 
     /* Initialize OS */
     sysinit();
 
-    conf_load();
-    
-    reboot_start(hal_reset_cause());
-
-    hal_gpio_init_out(NRFDUINO_PIN_LED, 1);
-
     /* Initialize the bleprph log. */
-    // log_register("bleprph", &app_log, &log_console_handler, NULL, LOG_SYSLEVEL);
+    log_register("bleprph", &bleprph_log, &log_console_handler, NULL,
+                 LOG_SYSLEVEL);
 
     /* Initialize the NimBLE host configuration. */
-    // log_register("ble_hs", &ble_hs_log, &log_console_handler, NULL, LOG_SYSLEVEL);
-    // ble_hs_cfg.reset_cb = bleprph_on_reset;
-    // ble_hs_cfg.sync_cb = bleprph_on_sync;
-    // ble_hs_cfg.gatts_register_cb = gatt_svr_register_cb;
+    log_register("ble_hs", &ble_hs_log, &log_console_handler, NULL,
+                 LOG_SYSLEVEL);
+    ble_hs_cfg.reset_cb = bleprph_on_reset;
+    ble_hs_cfg.sync_cb = bleprph_on_sync;
+    ble_hs_cfg.gatts_register_cb = gatt_svr_register_cb;
+    ble_hs_cfg.store_status_cb = ble_store_util_status_rr;
 
-    // rc = gatt_svr_init();
-    // assert(rc == 0);
+    rc = gatt_svr_init();
+    assert(rc == 0);
 
-    register_nimble_service();
     /* Set the default device name. */
-    int i=0;
     char lstr[255];
-    snprintf(lstr, sizeof(lstr), "%s-", devBaseName); 
-    for (i=0; i<5; i++) {
-        snprintf(lstr, sizeof(lstr), "%s%d:", lstr, g_dev_addr[i]); 
-    }
-    lstr[i] = '\0'; // remove the last colon
-
+    // snprintf(lstr, sizeof(lstr), "%s-%02x:%02x:%02x:%02x:%02x:%02x", devBaseName, g_dev_addr[0], g_dev_addr[1], g_dev_addr[2], g_dev_addr[3], g_dev_addr[4], g_dev_addr[5]); 
+    snprintf(lstr, sizeof(lstr), "%s-%02x%02x%02x%02x%02x%02x", devBaseName, g_dev_addr[0], g_dev_addr[1], g_dev_addr[2], g_dev_addr[3], g_dev_addr[4], g_dev_addr[5]); 
     rc = ble_svc_gap_device_name_set(lstr);
     assert(rc == 0);
+
+#if MYNEWT_VAL(BLEPRPH_LE_PHY_SUPPORT)
+    phy_init();
+#endif
 
     conf_load();
 
     /* If this app is acting as the loader in a split image setup, jump into
      * the second stage application instead of starting the OS.
      */
-#if 0
 #if MYNEWT_VAL(SPLIT_LOADER)
     {
         void *entry;
@@ -344,7 +336,8 @@ main(void)
         }
     }
 #endif
-#endif
+
+
     /*
      * As the last thing, process events from default event queue.
      */

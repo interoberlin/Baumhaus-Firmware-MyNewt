@@ -1,0 +1,4 @@
+
+syscfg.vals:
+#   Uncomment the following line to enable debugging images with Eclipse/gdb
+#    BOOT_FORCE: "1"

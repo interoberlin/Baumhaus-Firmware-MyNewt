@@ -18,38 +18,38 @@
 
 
 syscfg.vals:
-    # Use INFO log level to reduce code size.  DEBUG is too large for nRF51.
-    REBOOT_LOG_CONSOLE: 0
-    REBOOT_LOG_ENTRY_COUNT: 0
-    LOG_LEVEL: 0
-    CONSOLE_INPUT: 0
-    CONSOLE_RTT: 0
-    CONSOLE_UART: 0
+    # LOG_LEVEL: 255
+    # XTAL_32768_SYNTH: 0
+    # REBOOT_LOG_CONSOLE: 0
+    # REBOOT_LOG_ENTRY_COUNT: 0
+    # CONSOLE_INPUT: 0
+    # CONSOLE_RTT: 0
+    # CONSOLE_UART: 0
 
-    # Disable central and observer roles.
-    BLE_ROLE_BROADCASTER: 1
-    BLE_ROLE_CENTRAL: 0
-    BLE_ROLE_OBSERVER: 0
-    BLE_ROLE_PERIPHERAL: 1
+    # # Disable central and observer roles.
+    # BLE_ROLE_BROADCASTER: 1
+    # BLE_ROLE_CENTRAL: 0
+    # BLE_ROLE_OBSERVER: 0
+    # BLE_ROLE_PERIPHERAL: 1
 
-    BLE_LL_CFG_FEAT_LE_ENCRYPTION: 0
-    BLE_SM_LEGACY: 0
+    # BLE_LL_CFG_FEAT_LE_ENCRYPTION: 0
+    # BLE_SM_LEGACY: 0
 
-    # Disable unused eddystone feature.
-    BLE_EDDYSTONE: 0
+    # # Disable unused eddystone feature.
+    # BLE_EDDYSTONE: 0
 
-    # Log reboot messages to a flash circular buffer.
-    REBOOT_LOG_FCB: 0
-    LOG_FCB: 0
-    CONFIG_FCB: 0
+    # # Log reboot messages to a flash circular buffer.
+    # REBOOT_LOG_FCB: 0
+    # LOG_FCB: 0
+    # CONFIG_FCB: 0
 
-    # Enable newtmgr commands.
-    STATS_NEWTMGR: 0
-    LOG_NEWTMGR: 0
+    # # Enable newtmgr commands.
+    # STATS_NEWTMGR: 0
+    # LOG_NEWTMGR: 0
 
-    # Enable Config.
-    CONFIG_NEWTMGR: 0
+    # # Enable Config.
+    # CONFIG_NEWTMGR: 0
 
-    # OS main/default task
-    OS_MAIN_STACK_SIZE: 428
+    # # OS main/default task
+    # OS_MAIN_STACK_SIZE: 428
 

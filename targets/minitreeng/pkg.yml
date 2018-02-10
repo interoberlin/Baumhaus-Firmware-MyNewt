@@ -1,0 +1,12 @@
+### Package: targets/minitreeng
+pkg.name: "targets/minitreeng"
+pkg.type: "target"
+pkg.description: 
+pkg.author: 
+pkg.homepage: 
+
+pkg.cflags:
+    - "-DMINI_TREE"
+    - "-DEMBEDDED"
+    - "-std=gnu11"
+    - "-DMINI_TREE -DEMBEDDED -std=gnu11"

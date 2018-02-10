@@ -1,4 +1,3 @@
-#if 0
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,7 +17,7 @@
  * under the License.
  */
 
-#include "nimblink.h"
+#include "bleprph.h"
 
 /**
  * Utility function to log an array of bytes.
@@ -42,4 +41,3 @@ print_addr(const void *addr)
     BLEPRPH_LOG(INFO, "%02x:%02x:%02x:%02x:%02x:%02x",
                 u8p[5], u8p[4], u8p[3], u8p[2], u8p[1], u8p[0]);
 }
-#endif

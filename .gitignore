@@ -4,6 +4,7 @@
 .cproject
 .pydevproject
 .metadata
+.pydevproject
 
 # generated files
 openocd.log

@@ -9,6 +9,23 @@ pkg.deps:
     - "@apache-mynewt-core/boot/split"
     - "@apache-mynewt-core/mgmt/imgmgr"
 
+pgk.dep:
+    - "@apache-mynewt-core/boot/bootutil"
+    - "@apache-mynewt-core/boot/split"
+    - "@apache-mynewt-core/boot/split_app"
+    - "@apache-mynewt-core/kernel/os"
+    - "@apache-mynewt-core/mgmt/imgmgr"
+    - "@apache-mynewt-core/mgmt/newtmgr"
+    - "@apache-mynewt-core/mgmt/newtmgr/transport/nmgr_shell"
+    - "@apache-mynewt-core/sys/config"
+    - "@apache-mynewt-core/sys/console/full"
+    - "@apache-mynewt-core/sys/id"
+    - "@apache-mynewt-core/sys/log/full"
+    - "@apache-mynewt-core/sys/shell"
+    - "@apache-mynewt-core/sys/stats/full"
+    # - "@apache-mynewt-core/sys/console/minimal"
+    # - "@apache-mynewt-core/sys/log/stub"
+
 pkg.cflags:
     - "-DNIMBLE_OPT_ROLE_CENTRAL=0"
     - "-DNIMBLE_OPT_ROLE_OBSERVER=0"
@@ -24,4 +41,3 @@ pkg.cflags:
     - "-DNIMBLE_OPT_GATT_WRITE_RELIABLE=0"
     - "-Wno-error=unused-function"
     - "-Wno-error=format-truncation"
-

@@ -2,7 +2,7 @@
 
 Ausgehend von der blinky app erstellen wir uns ein template für den Minitree, um die bisherige Firmware unter mynewt zu compilieren
 
-```
+```shell
 newt target copy my_blinky minitree
 Target successfully copied; targets/my_blinky --> targets/minitree
 
@@ -61,3 +61,4 @@ $ cp -r blinky minitree
 ### Minitree Tasksteuerung
 
 main.c wird durch das Tasksample von [mynewt](https://mynewt.apache.org/latest/os/core_os/task/task/) ersetzt und `#define ANDRU_BLINK_PIN 28` auf unseren GPIO-Pin gesetzt.
+__

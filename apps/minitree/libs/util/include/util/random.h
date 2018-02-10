@@ -10,6 +10,8 @@
 #ifndef RNG_H
 #define RNG_H
 
+#if 0
+
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -31,3 +33,4 @@ int rand();
 
 #endif
 
+#endif

@@ -17,44 +17,27 @@
  * under the License.
  */
 
-#ifndef H_NIMBLINK_
-#define H_NIMBLINK_
+#ifndef H_BLEPRPH_
+#define H_BLEPRPH_
 
+#include <stdbool.h>
+#include "log/log.h"
+#include "nimble/ble.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define NRFDUINO_PIN_LED 28
-
-
-/* forward declarations (defined in loader */
-extern void bleprph_on_reset(int reason);
-extern  void bleprph_on_sync(void);
-extern void gatt_svr_register_cb(struct ble_gatt_register_ctxt *ctxt, void *arg);
-
-/* forward declarations (defined in gatt_service.c */
-extern int gatt_led_blinky_callback(
-    uint16_t conn_handle,
-    uint16_t attr_handle,
-    struct ble_gatt_access_ctxt *ctxt,
-    void *arg);
-extern int register_nimble_service(void);
-
-#if 0
-#include "log/log.h"
-#include "nimble/ble.h"
-
 struct ble_hs_cfg;
 struct ble_gatt_register_ctxt;
 
-extern struct log app_log;
+extern struct log bleprph_log;
 
 /* bleprph uses the first "peruser" log module. */
 #define BLEPRPH_LOG_MODULE  (LOG_MODULE_PERUSER + 0)
 
 /* Convenience macro for logging to the bleprph module. */
 #define BLEPRPH_LOG(lvl, ...) \
-    LOG_ ## lvl(&app_log, BLEPRPH_LOG_MODULE, __VA_ARGS__)
+    LOG_ ## lvl(&bleprph_log, BLEPRPH_LOG_MODULE, __VA_ARGS__)
 
 /** GATT server. */
 #define GATT_SVR_SVC_ALERT_UUID               0x1811
@@ -67,12 +50,21 @@ extern struct log app_log;
 void gatt_svr_register_cb(struct ble_gatt_register_ctxt *ctxt, void *arg);
 int gatt_svr_init(void);
 
+/* PHY support */
+#if MYNEWT_VAL(BLEPRPH_LE_PHY_SUPPORT)
+#define CONN_HANDLE_INVALID     0xffff
+
+void phy_init(void);
+void phy_conn_changed(uint16_t handle);
+void phy_update(uint8_t phy);
+#endif
+
 /** Misc. */
 void print_bytes(const uint8_t *bytes, int len);
 void print_addr(const void *addr);
 
-#endif
 #ifdef __cplusplus
 }
 #endif
+
 #endif
