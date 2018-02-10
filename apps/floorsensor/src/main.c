@@ -20,14 +20,14 @@
 #include "host/ble_hs.h"
 #include "services/gap/ble_svc_gap.h"
 
+// Pin configuration
+#include "pinout.h"
+
 // Floor sensors
 #include "floor.h"
 
 /* Application-specified header. */
 #include "nimblink.h"
-
-
-#define NRFDUINO_PIN_LED 28
 
 
 /** Log data. */
@@ -249,10 +249,10 @@ int gatt_led_blinky_callback(
         uint8_t i;
         for (i=0; i<repeat; i++)
         {
-            hal_gpio_write(NRFDUINO_PIN_LED, 1);
-            os_time_delay(OS_TICKS_PER_SEC);
-            hal_gpio_write(NRFDUINO_PIN_LED, 0);
-            os_time_delay(OS_TICKS_PER_SEC);
+            hal_gpio_write(PIN_LED_DEBUG, 1);
+            os_time_delay(1*OS_TICKS_PER_SEC);
+            hal_gpio_write(PIN_LED_DEBUG, 0);
+            os_time_delay(1*OS_TICKS_PER_SEC);
         }
     }
 
@@ -291,7 +291,7 @@ main(void)
     /* Initialize OS */
     sysinit();
 
-    hal_gpio_init_out(NRFDUINO_PIN_LED, 1);
+    led_init();
 
     /* Initialize the bleprph log. */
     log_register("bleprph", &app_log, &log_console_handler, NULL, LOG_SYSLEVEL);
