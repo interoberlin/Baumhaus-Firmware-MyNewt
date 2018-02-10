@@ -1,0 +1,6 @@
+### Target: targets/nimblink
+target.app: "apps/nimblink"
+target.bsp: "@apache-mynewt-core/hw/bsp/nrf52dk"
+target.build_profile: "optimized"
+target.loader: "apps/nrf52-loader"
+### Target: targets/nimblink-nrf52
