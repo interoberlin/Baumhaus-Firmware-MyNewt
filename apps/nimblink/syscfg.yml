@@ -18,7 +18,7 @@
 
 
 syscfg.vals:
-    LOG_LEVEL: 255
+    # LOG_LEVEL: 255
     # XTAL_32768_SYNTH: 0
     # REBOOT_LOG_CONSOLE: 0
     # REBOOT_LOG_ENTRY_COUNT: 0
