@@ -22,7 +22,21 @@ pkg.author: "Goetz van Rissenbeck <goetz@vanrissenbeck.de"
 pkg.homepage: 
 pkg.keywords:
 pkg.deps:
-    - "@apache-mynewt-core/kernel/os"
-    - "@apache-mynewt-core/hw/hal"
     - "@apache-mynewt-core/sys/console/full"
+    - "@apache-mynewt-core/boot/bootutil"
+    - "@apache-mynewt-core/mgmt/imgmgr"
+    - "@apache-mynewt-core/mgmt/newtmgr"
+    - "@apache-mynewt-core/sys/log/full"
 
+# pkg.deps:
+#     - "@apache-mynewt-core/boot/split"
+#     - "@apache-mynewt-core/boot/split_app"
+#     - "@apache-mynewt-core/hw/hal"
+#     - "@apache-mynewt-core/mgmt/imgmgr"    
+#     - "@apache-mynewt-core/sys/console/full"
+
+# pkg.deps:
+#     - "@apache-mynewt-core/mgmt/newtmgr"
+#     - "@apache-mynewt-core/sys/log/full"
+#     - "@apache-mynewt-core/sys/sysinit"
+#     - "@apache-mynewt-core/sys/console/full"

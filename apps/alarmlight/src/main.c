@@ -20,10 +20,19 @@
 #include <assert.h>
 #include <string.h>
 
-#include "sysinit/sysinit.h"
-#include "os/os.h"
-#include "bsp/bsp.h"
-#include "hal/hal_gpio.h"
+#include <sysinit/sysinit.h>
+#include <reboot/log_reboot.h>
+#include <config/config.h>
+#include <os/os.h>
+#include <bootutil/image.h>
+#include <bootutil/bootutil.h>
+#include <bsp/bsp.h>
+#include <hal/hal_gpio.h>
+
+#if MYNEWT_VAL(SPLIT_LOADER)
+#include <split/split.h>
+#endif
+
 #include "alarmlight.h"
 
 #ifdef ARCH_sim
@@ -53,6 +62,10 @@ main(int argc, char **argv)
 #endif
 
     sysinit();
+
+    conf_load();
+    
+    reboot_start(hal_reset_cause());
 
     // fuer unser development board anpassen
     hal_gpio_init_out(NRFDUINO_PIN_LED, 1);
