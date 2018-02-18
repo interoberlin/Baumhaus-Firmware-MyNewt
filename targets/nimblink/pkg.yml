@@ -40,4 +40,4 @@ pkg.cflags:
     - "-DNIMBLE_OPT_GATT_WRITE_LONG=0"
     - "-DNIMBLE_OPT_GATT_WRITE_RELIABLE=0"
     - "-Wno-error=unused-function"
-    - "-Wno-error=format-truncation"
+      #    - "-Wno-error=format-truncation"

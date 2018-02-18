@@ -1,0 +1,8 @@
+### Package: targets/alarmlight
+pkg.name: "targets/alarmlight"
+pkg.type: "target"
+pkg.description: 
+pkg.author: 
+pkg.homepage: 
+pkg.deps:
+    

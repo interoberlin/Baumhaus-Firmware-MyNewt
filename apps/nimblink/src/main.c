@@ -319,12 +319,12 @@ main(void)
     register_nimble_service();
     /* Set the default device name. */
     int i=0;
-    char lstr[255];
+    char lstr[255]={0};
     snprintf(lstr, sizeof(lstr), "%s-", devBaseName); 
     for (i=0; i<5; i++) {
         snprintf(lstr, sizeof(lstr), "%s%d:", lstr, g_dev_addr[i]); 
     }
-    lstr[i] = '\0'; // remove the last colon
+    lstr[strlen(lstr)-1] = '\0'; // remove the last colon
 
     rc = ble_svc_gap_device_name_set(lstr);
     assert(rc == 0);
