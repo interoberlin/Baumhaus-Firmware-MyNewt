@@ -4,10 +4,6 @@ pkg.type: "target"
 pkg.description: 
 pkg.author: 
 pkg.homepage: 
-pkg.deps:
-    - "@apache-mynewt-core/boot/bootutil"
-    - "@apache-mynewt-core/boot/split"
-    - "@apache-mynewt-core/mgmt/imgmgr"
 
 pgk.dep:
     - "@apache-mynewt-core/boot/bootutil"
