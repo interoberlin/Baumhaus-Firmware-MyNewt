@@ -27,6 +27,7 @@
 #include <bootutil/image.h>
 #include <bootutil/bootutil.h>
 #include <bsp/bsp.h>
+#include <hal/hal_bsp.h>
 #include <hal/hal_gpio.h>
 
 #if MYNEWT_VAL(SPLIT_LOADER)
@@ -35,10 +36,6 @@
 
 #include <host/ble_uuid.h>
 #include <host/ble_hs.h>
-
-
-
-
 
 #include "alarmlight.h"
 
@@ -53,6 +50,11 @@ struct log app_log;
 
 /* For LED toggling */
 int g_led_pin;
+
+/**
+ * Holds the device's Bluetooth physical address
+ */
+uint8_t g_dev_addr[BLE_DEV_ADDR_LEN];
 
 
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
@@ -293,20 +295,16 @@ main(int argc, char **argv)
 {
     int rc;
 
-#ifdef ARCH_sim
-    mcu_sim_parse_args(argc, argv);
-#endif
+    hal_bsp_hw_id(g_dev_addr, 6);
 
     sysinit();
 
-    conf_load();
-     
-    reboot_start(hal_reset_cause());
+    hal_gpio_init_out(NRFDUINO_PIN_LED, 1);
+    hal_gpio_init_out(NRFDUINO_CTRL_LED, 1);
 
-    rc = ble_svc_gap_device_name_set("floorsensor");
-    assert(rc == 0);
+    ble_svc_gap_device_name_set("alarmlight");
 
-/* Initialize the bleprph log. */
+    /* Initialize the bleprph log. */
     log_register("bleprph", &app_log, &log_console_handler, NULL, LOG_SYSLEVEL);
 
     /* Initialize the NimBLE host configuration. */
@@ -318,21 +316,10 @@ main(int argc, char **argv)
     rc = gatt_svr_init();
     assert(rc == 0);
 
-
-    // fuer unser development board anpassen
-    hal_gpio_init_out(NRFDUINO_PIN_LED, 1);
-    hal_gpio_init_out(NRFDUINO_CTRL_LED, 1);
+    conf_load();
 
     while (1) {
-        ++g_task1_loops;
-
-        /* Wait one second */
-        os_time_delay(OS_TICKS_PER_SEC);
-		
-        /* Toggle the LED */
-        hal_gpio_toggle(NRFDUINO_PIN_LED);
-        hal_gpio_toggle(NRFDUINO_CTRL_LED);
-        
+        os_eventq_run(os_eventq_dflt_get());
     }
     assert(0);
 
