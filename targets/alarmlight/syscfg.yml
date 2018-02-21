@@ -4,6 +4,14 @@ syscfg.vals:
     # Disable BLE encryption
     BLE_LL_CFG_FEAT_LE_ENCRYPTION: 0
 
+    # OS main/default task
+    OS_MAIN_STACK_SIZE: 468
+
+    # Lots of smaller mbufs are required for newtmgr using typical BLE ATT MTU
+    # values.
+    MSYS_1_BLOCK_COUNT: 22
+    MSYS_1_BLOCK_SIZE: 110
+
     # Disable legacy L2CAP security manager
     BLE_SM_LEGACY: 0
 
@@ -16,7 +24,7 @@ syscfg.vals:
     # Disable Eddystone support
     BLE_EDDYSTONE: 0
 
-    # Disable FCB
+    # Disable flash circular buffer (FCB)
     REBOOT_LOG_FCB: 0
     LOG_FCB: 0
     CONFIG_FCB: 0
