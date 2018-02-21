@@ -45,7 +45,6 @@
 
 static volatile int g_task1_loops;
 
-
 struct log app_log;
 
 /* For LED toggling */
@@ -281,6 +280,8 @@ int gatt_led_blinky_callback(
 }
 
 
+extern int phy_init();
+
 
 /**
  * main
@@ -295,16 +296,16 @@ main(int argc, char **argv)
 {
     int rc;
 
-    hal_bsp_hw_id(g_dev_addr, 6);
+//    hal_bsp_hw_id(g_dev_addr, 6);
+    /* Set initial BLE device address. */
+    memcpy(g_dev_addr, (uint8_t[6]){0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a}, 6);
 
     sysinit();
 
     hal_gpio_init_out(NRFDUINO_PIN_LED, 1);
     hal_gpio_init_out(NRFDUINO_CTRL_LED, 1);
 
-    ble_svc_gap_device_name_set("alarmlight");
-
-    /* Initialize the bleprph log. */
+    /* Initialize the log. */
     log_register("bleprph", &app_log, &log_console_handler, NULL, LOG_SYSLEVEL);
 
     /* Initialize the NimBLE host configuration. */
@@ -312,16 +313,39 @@ main(int argc, char **argv)
     ble_hs_cfg.reset_cb = bleprph_on_reset;
     ble_hs_cfg.sync_cb = bleprph_on_sync;
     ble_hs_cfg.gatts_register_cb = gatt_svr_register_cb;
+    ble_hs_cfg.store_status_cb = ble_store_util_status_rr;
 
+    /* Initialize the GATT server. */
     rc = gatt_svr_init();
     assert(rc == 0);
 
+    /* Set the device name. */
+    rc = ble_svc_gap_device_name_set("alarmlight");
+    assert(rc == 0);
+
+    phy_init();
+
     conf_load();
 
+    /* If this app is acting as the loader in a split image setup, jump into
+     * the second stage application instead of starting the OS.
+     */
+#if MYNEWT_VAL(SPLIT_LOADER)
+    {
+        void *entry;
+        rc = split_app_go(&entry, true);
+        if (rc == 0) {
+            hal_system_start(entry);
+        }
+    }
+#else
     while (1) {
         os_eventq_run(os_eventq_dflt_get());
     }
+
+    // Exception: We should never arrive here.
     assert(0);
+#endif
 
     return rc;
 }
