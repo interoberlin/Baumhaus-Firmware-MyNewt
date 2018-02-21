@@ -280,9 +280,6 @@ int gatt_led_blinky_callback(
 }
 
 
-extern int phy_init();
-
-
 /**
  * main
  *
@@ -296,9 +293,8 @@ main(int argc, char **argv)
 {
     int rc;
 
-//    hal_bsp_hw_id(g_dev_addr, 6);
-    /* Set initial BLE device address. */
-    memcpy(g_dev_addr, (uint8_t[6]){0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a}, 6);
+    /* Set BLE device address. */
+    hal_bsp_hw_id(g_dev_addr, 6);
 
     sysinit();
 
@@ -322,8 +318,6 @@ main(int argc, char **argv)
     /* Set the device name. */
     rc = ble_svc_gap_device_name_set("alarmlight");
     assert(rc == 0);
-
-    phy_init();
 
     conf_load();
 
