@@ -1,4 +1,34 @@
 ### Package: targets/alarmlight
+
 syscfg.vals:
-    BLE_LL_CFG_FEAT_LE_ENCRYPTION: "0"
-    BLE_SM_LEGACY: "0"
+    # Disable BLE encryption
+    BLE_LL_CFG_FEAT_LE_ENCRYPTION: 0
+
+    # Disable legacy L2CAP security manager
+    BLE_SM_LEGACY: 0
+
+    # Disable central and observer roles.
+    BLE_ROLE_BROADCASTER: 1
+    BLE_ROLE_CENTRAL: 0
+    BLE_ROLE_OBSERVER: 0
+    BLE_ROLE_PERIPHERAL: 1
+
+    # Disable Eddystone support
+    BLE_EDDYSTONE: 0
+
+    # Disable FCB
+    REBOOT_LOG_FCB: 0
+    LOG_FCB: 0
+    CONFIG_FCB: 0
+
+    # Disable newtmgr
+    STATS_NEWTMGR: 0
+    LOG_NEWTMGR: 0
+    CONFIG_NEWTMGR: 0
+
+    # Configure logging to UART
+    UART_0: 1
+    CONSOLE_UART: 1
+    CONSOLE_UART_BAUD: 460800
+    REBOOT_LOG_CONSOLE: 1
+    LOG_LEVEL: LOG_LEVEL_DEBUG
