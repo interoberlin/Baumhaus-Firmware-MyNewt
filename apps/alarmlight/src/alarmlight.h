@@ -58,7 +58,7 @@ int gatt_svr_init(void);
 void print_bytes(const uint8_t *bytes, int len);
 void print_addr(const void *addr);
 
-extern int gatt_led_blinky_callback(
+int gatt_led_blinky_callback(
     uint16_t conn_handle,
     uint16_t attr_handle,
     struct ble_gatt_access_ctxt *ctxt,

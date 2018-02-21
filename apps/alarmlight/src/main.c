@@ -27,6 +27,7 @@
 #include <bootutil/image.h>
 #include <bootutil/bootutil.h>
 #include <bsp/bsp.h>
+#include <hal/hal_bsp.h>
 #include <hal/hal_gpio.h>
 
 #if MYNEWT_VAL(SPLIT_LOADER)
@@ -36,10 +37,6 @@
 #include <host/ble_uuid.h>
 #include <host/ble_hs.h>
 
-
-
-
-
 #include "alarmlight.h"
 
 #ifdef ARCH_sim
@@ -48,11 +45,15 @@
 
 static volatile int g_task1_loops;
 
-
 struct log app_log;
 
 /* For LED toggling */
 int g_led_pin;
+
+/**
+ * Holds the device's Bluetooth physical address
+ */
+uint8_t g_dev_addr[BLE_DEV_ADDR_LEN];
 
 
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg);
@@ -279,7 +280,6 @@ int gatt_led_blinky_callback(
 }
 
 
-
 /**
  * main
  *
@@ -293,20 +293,15 @@ main(int argc, char **argv)
 {
     int rc;
 
-#ifdef ARCH_sim
-    mcu_sim_parse_args(argc, argv);
-#endif
+    /* Set BLE device address. */
+    hal_bsp_hw_id(g_dev_addr, 6);
 
     sysinit();
 
-    conf_load();
-     
-    reboot_start(hal_reset_cause());
+    hal_gpio_init_out(NRFDUINO_PIN_LED, 1);
+    hal_gpio_init_out(NRFDUINO_CTRL_LED, 1);
 
-    rc = ble_svc_gap_device_name_set("floorsensor");
-    assert(rc == 0);
-
-/* Initialize the bleprph log. */
+    /* Initialize the log. */
     log_register("bleprph", &app_log, &log_console_handler, NULL, LOG_SYSLEVEL);
 
     /* Initialize the NimBLE host configuration. */
@@ -314,27 +309,37 @@ main(int argc, char **argv)
     ble_hs_cfg.reset_cb = bleprph_on_reset;
     ble_hs_cfg.sync_cb = bleprph_on_sync;
     ble_hs_cfg.gatts_register_cb = gatt_svr_register_cb;
+    ble_hs_cfg.store_status_cb = ble_store_util_status_rr;
 
+    /* Initialize the GATT server. */
     rc = gatt_svr_init();
     assert(rc == 0);
 
+    /* Set the device name. */
+    rc = ble_svc_gap_device_name_set("alarmlight");
+    assert(rc == 0);
 
-    // fuer unser development board anpassen
-    hal_gpio_init_out(NRFDUINO_PIN_LED, 1);
-    hal_gpio_init_out(NRFDUINO_CTRL_LED, 1);
+    conf_load();
 
-    while (1) {
-        ++g_task1_loops;
-
-        /* Wait one second */
-        os_time_delay(OS_TICKS_PER_SEC);
-		
-        /* Toggle the LED */
-        hal_gpio_toggle(NRFDUINO_PIN_LED);
-        hal_gpio_toggle(NRFDUINO_CTRL_LED);
-        
+    /* If this app is acting as the loader in a split image setup, jump into
+     * the second stage application instead of starting the OS.
+     */
+#if MYNEWT_VAL(SPLIT_LOADER)
+    {
+        void *entry;
+        rc = split_app_go(&entry, true);
+        if (rc == 0) {
+            hal_system_start(entry);
+        }
     }
+#else
+    while (1) {
+        os_eventq_run(os_eventq_dflt_get());
+    }
+
+    // Exception: We should never arrive here.
     assert(0);
+#endif
 
     return rc;
 }
