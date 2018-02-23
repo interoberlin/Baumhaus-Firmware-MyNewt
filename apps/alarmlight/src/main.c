@@ -53,7 +53,7 @@ int g_led_pin;
 /**
  * Holds the device's Bluetooth physical address
  */
-uint8_t g_dev_addr[BLE_DEV_ADDR_LEN];
+// uint8_t g_dev_addr[BLE_DEV_ADDR_LEN];
 
 
 static int bleprph_gap_event(struct ble_gap_event *event, void *arg);

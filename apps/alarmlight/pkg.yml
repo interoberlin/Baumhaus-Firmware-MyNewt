@@ -23,6 +23,7 @@ pkg.homepage:
 pkg.keywords:
 pkg.deps:
     - "@apache-mynewt-core/boot/bootutil"
+    - "@apache-mynewt-core/boot/split_app"
     - "@apache-mynewt-core/kernel/os" 
     - "@apache-mynewt-core/sys/sysinit"
     - "@apache-mynewt-core/sys/id"
