@@ -1,5 +1,5 @@
 ### Target: targets/alarmlight
 target.app: "apps/alarmlight"
-target.bsp: "@apache-mynewt-core/hw/bsp/nrf51dk-16kbram-openocd"
+target.bsp: "@interoberlin-mynewt-extensions/hw/bsp/nrf51dk-16kbram-openocd"
 target.build_profile: "optimized"
 #target.loader: "apps/nrf51-loader"

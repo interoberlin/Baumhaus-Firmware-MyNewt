@@ -1,4 +1,4 @@
 ### Target: targets/my_blinky
 target.app: "apps/blinky"
-target.bsp: "@apache-mynewt-core/hw/bsp/nrf51dk-16kbram-openocd"
+target.bsp: "@interoberlin-mynewt-extensions/hw/bsp/nrf51dk-16kbram-openocd"
 target.build_profile: "debug"

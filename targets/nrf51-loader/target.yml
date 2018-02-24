@@ -1,4 +1,4 @@
 ### Target: targets/nrf51-loader
-target.app: "apps/nrf51-loader"
-target.bsp: "@apache-mynewt-core/hw/bsp/nrf51dk-16kbram-openocd"
-target.build_profile: "optimized"
+# target.app: "apps/nrf51-loader"
+# target.bsp: "@interoberlin-mynewt-extensions/hw/bsp/nrf51dk-16kbram-openocd"
+# target.build_profile: "optimized"
