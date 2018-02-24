@@ -17,10 +17,11 @@
 # under the License.
 #
 
-project.name: "my_project"
+project.name: "Baumhaus-Firmware"
 
 project.repositories:
     - apache-mynewt-core
+    - interoberlin-mynewt-extensions
 
 # Use github's distribution mechanism for core ASF libraries.
 # This provides mirroring automatically for us.
@@ -30,3 +31,9 @@ repository.apache-mynewt-core:
     vers: 1-latest
     user: interoberlin
     repo: mynewt-core
+
+repository.interoberlin-mynewt-extensions:
+    type: github
+    vers: 0-latest
+    user: interoberlin
+    repo: interoberlin-mynewt-extensions
