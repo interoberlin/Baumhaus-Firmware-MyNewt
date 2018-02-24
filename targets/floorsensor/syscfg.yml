@@ -10,3 +10,10 @@ syscfg.vals:
     OS_CLI: 0
     OS_COREDUMP: 0
     SHELL_TASK: 0
+    # OS main/default task
+    OS_MAIN_STACK_SIZE: 468
+
+    # Lots of smaller mbufs are required for newtmgr using typical BLE ATT MTU
+    # values.
+    MSYS_1_BLOCK_COUNT: 22
+    MSYS_1_BLOCK_SIZE: 110
