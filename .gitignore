@@ -38,3 +38,6 @@ docs/latex
 
 # other IDE
 .vscode
+repos/.configs/interoberlin-mynewt-extensions/repository.yml
+repos/.configs/apache-mynewt-core/repository.yml
+repos/.configs/apache-mynewt-core/repository.yml
