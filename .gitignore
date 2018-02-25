@@ -40,4 +40,4 @@ docs/latex
 .vscode
 
 # stuff controlled by mynewt
-repos/
+repos
