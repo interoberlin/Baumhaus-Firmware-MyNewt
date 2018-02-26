@@ -41,3 +41,4 @@ docs/latex
 
 # stuff controlled by mynewt
 repos
+project.state
