@@ -36,7 +36,7 @@ extern struct log app_log;
 
 /* Convenience macro for logging to the bleprph module. */
 #define BLEPRPH_LOG(lvl, ...) \
-    LOG_ ## lvl(&bleprph_log, BLEPRPH_LOG_MODULE, __VA_ARGS__)
+    LOG_ ## lvl(&app_log, BLEPRPH_LOG_MODULE, __VA_ARGS__)
 
 /** GATT server. */
 #define GATT_SVR_SVC_ALERT_UUID               0x1811
