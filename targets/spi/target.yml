@@ -1,4 +1,0 @@
-### Target: targets/spi
-target.app: "apps/spi"
-target.bsp: "@interoberlin-mynewt-extensions/hw/bsp/nrf51dk-16kbram-openocd"
-target.build_profile: "debug"

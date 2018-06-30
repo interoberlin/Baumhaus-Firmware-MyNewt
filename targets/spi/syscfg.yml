@@ -1,8 +1,0 @@
-
-syscfg.vals:
-    SPI_0_MASTER: 1
-
-    CONSOLE_INPUT: 0
-    CONSOLE_UART: 0
-    CONSOLE_COMPAT: 0
-    CONSOLE_UART_TX_BUF_SIZE: 1
