@@ -2,7 +2,7 @@
 #ifndef PINOUT_H
 #define PINOUT_H
 
-#include "../../tree/libs/util/include/util/nrfduino.h"
+#include "util/nrfduino.h"
 
 #define PIN_LED_DATA0       NRFDUINO_PIN_IO0
 #define PIN_LED_DATA1       NRFDUINO_PIN_IO1

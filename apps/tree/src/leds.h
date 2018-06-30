@@ -9,8 +9,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "../../tree/src/board.h"
-#include "../../tree/src/sk6812.h"
+#include "board.h"
+#include "sk6812.h"
 
 #define LED_COLUMN_LEFT     0
 #define LED_COLUMN_RIGHT    1

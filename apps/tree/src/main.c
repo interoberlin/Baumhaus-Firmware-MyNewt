@@ -1,9 +1,9 @@
 #include <assert.h>
 #include <string.h>
 
-#include "../../tree/libs/patterns/include/patterns/patterns.h"
-#include "../../tree/libs/util/include/util/random.h"
-#include "../../tree/libs/util/include/util/random.h"
+#include "patterns/patterns.h"
+#include "util/random.h"
+#include "util/random.h"
 #include "sysinit/sysinit.h"
 #include "os/os.h"
 #include "bsp/bsp.h"
@@ -14,7 +14,7 @@
 #include "mcu/mcu_sim.h"
 #endif
 
-#include "../../tree/src/leds.h"
+#include "leds.h"
 
 
 //extern neopixel_strip_t strip[];

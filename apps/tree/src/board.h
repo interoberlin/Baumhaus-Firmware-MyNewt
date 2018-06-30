@@ -6,7 +6,7 @@
 #define BOARD_H
 
 #include <hal/hal_gpio.h>
-#include "../../tree/src/pinout.h"
+#include "pinout.h"
 
 // for development/debugging
 #ifdef BOARD_NRFDUINO
