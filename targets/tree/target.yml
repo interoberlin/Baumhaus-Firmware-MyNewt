@@ -1,4 +1,3 @@
-### Target: targets/minitree
-target.app: "apps/minitree"
+target.app: "apps/tree"
 target.bsp: "@interoberlin-mynewt-extensions/hw/bsp/nrf51dk-16kbram-openocd"
 target.build_profile: "debug"

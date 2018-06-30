@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "sparkles.h"
+#include "../../../../../tree/libs/patterns/include/patterns/sparkles.h"
 
 #define SPARKLE_COUNT   10
 

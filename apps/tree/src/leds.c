@@ -1,5 +1,5 @@
 
-#include "leds.h"
+#include "../../tree/src/leds.h"
 
 // four SK6812 LED strips
 neopixel_strip_t strip[LEDSTRIP_COUNT];

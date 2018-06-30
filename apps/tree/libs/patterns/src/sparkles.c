@@ -1,5 +1,5 @@
 
-#include "patterns/sparkles.h"
+#include "../../../../tree/libs/patterns/include/patterns/sparkles.h"
 
 extern sparkle_t pattern_sparkle[SPARKLE_COUNT];
 

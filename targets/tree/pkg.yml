@@ -1,5 +1,4 @@
-### Package: targets/minitree
-pkg.name: "targets/minitree"
+pkg.name: "targets/tree"
 pkg.type: "target"
 pkg.description: 
 pkg.author: 

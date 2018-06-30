@@ -5,10 +5,10 @@
 #ifndef SPARKLES_H
 #define SPARKLES_H
 
-#include "util/random.h"
-#include <leds.h>
-#include "patterns/patterns.h"
-#include <sk6812.h>
+#include "../../../../../tree/libs/patterns/include/patterns/patterns.h"
+#include "../../../../../tree/libs/util/include/util/random.h"
+#include "../../../../../tree/src/leds.h"
+#include "../../../../../tree/src/sk6812.h"
 
 typedef struct
 {

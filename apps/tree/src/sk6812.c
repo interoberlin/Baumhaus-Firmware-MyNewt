@@ -41,7 +41,7 @@
     - Do not use neopixel_set_color_and_show(...) with BLE, instead use uint8_t neopixel_set_color(...);
  */
  
-#include "sk6812.h"
+#include "../../tree/src/sk6812.h"
 
 void neopixel_init(neopixel_strip_t *strip, uint8_t pin_num, uint16_t num_leds)
 {
