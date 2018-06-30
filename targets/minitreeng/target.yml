@@ -1,6 +1,0 @@
-### Target: targets/minitreeng
-target.app: "apps/minitreeng"
-target.bsp: "@interoberlin-mynewt-extensions/hw/bsp/nrf51dk-16kbram-openocd"
-target.build_profile: "optimized"
-target.loader: "@interoberlin-mynewt-extensions/apps/nrf51-loader"
-
